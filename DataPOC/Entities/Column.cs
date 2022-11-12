@@ -9,7 +9,8 @@ namespace DataPOC.Entities
     public class Column
     {
         public string Name {get; private set;}
-        public string? Description {get; private set;}
+        public string? Description {get; private set; }
+        public ColumnAttributes Attributes {get; private set; }
 
         public Column(string name)
         {
@@ -20,9 +21,13 @@ namespace DataPOC.Entities
             Name = name;
             Description = description;
         }
-        public void SetDescription(string desc)
+        public void SetDescription(string? desc)
         {
-            Description = desc;
+            Description = desc ?? null;
+        }
+        public void SetAttributes(ColumnAttributes attributes)
+        {
+            Attributes = attributes;
         }
     }
 }

@@ -31,9 +31,32 @@ namespace DataPOC.Entities
             Columns = cols;
         }
 
-        public void SetDescription(string desc)
+        public void SetDescription(string? desc)
         {
-            Description = desc;
+            Description = desc ?? null;
+        }
+
+        public void SetColumnDescriptions(List<Column> colsList)
+        {
+            //Dictionary<string, string?> descriptionDict = new Dictionary<string, string?>();
+            //foreach (Column col in colsList)
+            //{
+            //    descriptionDict.Add(col.Name, col.Description);
+            //}
+
+            foreach (Column column in Columns)
+            {
+                if (column.Description is not null)
+                {
+                    column.SetDescription(
+                        colsList.Where(c => c.Name == column.Name)
+                        .Select(c => c.Description)
+                        .FirstOrDefault()
+                        );
+                }
+
+            }
+
         }
     }
 }

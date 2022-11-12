@@ -8,9 +8,11 @@ namespace DataPOC.Entities
 {
     public class TableCollection
     {
+        public string Name { get; private set; }
         public List<Table> Tables { get; private set; }
-        public TableCollection(List<Table> tables)
+        public TableCollection(string dbName, DateTime dateTime, List<Table> tables)
         {
+            Name = dbName + "_" + dateTime.ToString();
             Tables = tables;
         }
     }

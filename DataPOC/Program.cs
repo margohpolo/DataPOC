@@ -1,4 +1,5 @@
 ﻿using DataPOC.Entities;
+using DataPOC.Helpers.OutputHelpers;
 using DataPOC.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,14 +14,16 @@ namespace DataPOC
             builder.AddJsonFile("appsettings.json");
             IConfiguration config = builder.Build();
             StartupAndSetup(config);
-            string connStr = config.GetConnectionString("ConnectionString");
             QueryRepository qr = new QueryRepository(connectionString: config.GetConnectionString("ConnectionString"));
-            List<Table> allTables = qr.GetAllTables();
-            for (int i = 0; i < allTables.Count; i++)
+            TableCollection tableCollection = new TableCollection(dbName: "dbName", dateTime: DateTime.Now, tables: qr.GetAllTables());
+            for (int i = 0; i < tableCollection.Tables.Count; i++)
             {
-                allTables[i] = qr.GetTableDescription(allTables[i]);
-                allTables[i] = qr.GetAllColumnsAndDescriptionsForThisTable(allTables[i]);
+                tableCollection.Tables[i] = qr.GetTableDescription(tableCollection.Tables[i]);
+                tableCollection.Tables[i] = qr.GetColumnAttributesForThisTable(tableCollection.Tables[i]);
+                tableCollection.Tables[i] = qr.GetColumnDescriptionsForThisTable(tableCollection.Tables[i]);
             }
+            string convToJson = JsonOutput.TableCollectionToJson(tableCollection);
+            Console.WriteLine(convToJson);
 
         }
 
