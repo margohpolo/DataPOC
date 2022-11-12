@@ -6,9 +6,9 @@ POC of a helper to automate the generation of documentation.
 <br />
 <br />
 
-[Happy 11/11 Initial Commit]: Excluding the Queries folder, because there's no free lunch.
+<b>[Happy 11/11 Initial Commit]</b> Excluding the Queries folder, because there's no free lunch.
 <br />
-[12/11 Commit]: Attributes added; output to Json done.
+<b>[12/11 Commit]</b> Attributes added; output to Json done.
 <br />
 <br />
 <br />
