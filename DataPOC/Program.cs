@@ -1,5 +1,7 @@
 ﻿using DataPOC.Entities;
-using DataPOC.Helpers.OutputHelpers;
+using DataPOC.Helpers;
+using DataPOC.Helpers.OutputHelpers.Json;
+using DataPOC.Helpers.OutputHelpers.Markdown.Templates;
 using DataPOC.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +25,13 @@ namespace DataPOC
                 tableCollection.Tables[i] = qr.GetColumnDescriptionsForThisTable(tableCollection.Tables[i]);
             }
             string convToJson = JsonOutput.TableCollectionToJson(tableCollection);
-            Console.WriteLine(convToJson);
+            //Console.WriteLine(convToJson);
+            FileWriter.WriteNewJsonFile(dbName: "WideWorldImporters", dataJson: convToJson);
+            //Console.WriteLine("\n \n \n \n \n");
+
+            Dictionary<string, string> dataDict = DataDictionary.DataDictionaryTemplate(tableCollection);
+            FileWriter.WriteNewMarkdownDocs(dataDict);
+
 
         }
 

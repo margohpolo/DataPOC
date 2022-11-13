@@ -10,7 +10,7 @@ namespace DataPOC.Entities
     {
         public string Schema { get; private set; }
         public string Name { get; private set; }
-        public string? Description { get; private set; }
+        public string Description { get; private set; }
 
         public List<Column> Columns { get; private set; }
 
@@ -19,7 +19,7 @@ namespace DataPOC.Entities
             Schema = schema;
             Name = name;
         }
-        public Table(string schema, string name, string? description)
+        public Table(string schema, string name, string description)
         {
             Schema = schema;
             Name = name;
@@ -31,9 +31,10 @@ namespace DataPOC.Entities
             Columns = cols;
         }
 
-        public void SetDescription(string? desc)
+        public void SetDescription(string desc)
         {
-            Description = desc ?? null;
+
+            Description = desc ??= "Null";
         }
 
         public void SetColumnDescriptions(List<Column> colsList)
@@ -46,14 +47,14 @@ namespace DataPOC.Entities
 
             foreach (Column column in Columns)
             {
-                if (column.Description is not null)
-                {
+                //if (column.Description is not null)
+                //{
                     column.SetDescription(
                         colsList.Where(c => c.Name == column.Name)
                         .Select(c => c.Description)
                         .FirstOrDefault()
                         );
-                }
+                //}
 
             }
 

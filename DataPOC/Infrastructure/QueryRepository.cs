@@ -28,7 +28,7 @@ namespace DataPOC.Infrastructure
         {
             return ExecuteSql(connString: _connString,
                 cmdText: _queryList.GetAllTablesQuery(),
-                map: x => new Table(schema: (string) x[0], name: (string) x[1])
+                map: x => new Table(schema: NullHelper.ValueFromDB(x[0]), name: NullHelper.ValueFromDB(x[1]))
                 );
         }
 
@@ -36,7 +36,7 @@ namespace DataPOC.Infrastructure
         {
             List<string> tblDesc = ExecuteSql(connString: _connString,
                 cmdText: _queryList.GetTableDescriptionQuery(schemaName: table.Schema, tableName: table.Name),
-                map: x => (string?) NullHelper.ValueFromDB(x[0]) ?? null);
+                map: x => NullHelper.ValueFromDB(x[0]));
 
             if (tblDesc.Count > 0)
             {
@@ -51,13 +51,13 @@ namespace DataPOC.Infrastructure
                 cmdText: _queryList.GetColumnAttributesForThisTableQuery(schemaName: table.Schema, tableName: table.Name),
                 map: x =>
                 {
-                    Column newCol = new Column(name: (string) x[0]);
+                    Column newCol = new Column(name: NullHelper.ValueFromDB(x[0]));
                     newCol.SetAttributes(new ColumnAttributes(
-                            columnDefault: (string?) NullHelper.ValueFromDB(x[1]) ?? null, isNullable: (string) x[2], dataType: (string) x[3],
-                            charMaxLength: (string?) NullHelper.ValueFromDB(x[4]) ?? null, charDataLength: (string?) NullHelper.ValueFromDB(x[5]) ?? null, 
-                            numericPrecision: (string?) NullHelper.ValueFromDB(x[6]) ?? null, numericScale: (string?) NullHelper.ValueFromDB(x[7]) ?? null, 
-                            datetimePrescision: (string?) NullHelper.ValueFromDB(x[8]) ?? null, charSetName: (string?) NullHelper.ValueFromDB(x[9]) ?? null, 
-                            collationName: (string?) NullHelper.ValueFromDB(x[10]) ?? null
+                            columnDefault: NullHelper.ValueFromDB(x[1]), isNullable: NullHelper.ValueFromDB(x[2]), dataType: NullHelper.ValueFromDB(x[3]),
+                            charMaxLength: NullHelper.ValueFromDB(x[4]), charDataLength: NullHelper.ValueFromDB(x[5]), 
+                            numericPrecision: NullHelper.ValueFromDB(x[6]), numericScale: NullHelper.ValueFromDB(x[7]), 
+                            datetimePrescision: NullHelper.ValueFromDB(x[8]), charSetName: NullHelper.ValueFromDB(x[9]), 
+                            collationName: NullHelper.ValueFromDB(x[10])
                         ));
                     return newCol;
                 });
@@ -71,7 +71,7 @@ namespace DataPOC.Infrastructure
         {
             List<Column> columns = ExecuteSql(connString: _connString,
                 cmdText: _queryList.GetColumnDescriptionsForThisTableQuery(schemaName: table.Schema, tableName: table.Name),
-                map: x => new Column(name: (string) x[0], description: (string?) NullHelper.ValueFromDB(x[1]) ?? null)
+                map: x => new Column(name: NullHelper.ValueFromDB(x[0]), description: NullHelper.ValueFromDB(x[1]))
                 );
 
             table.SetColumnDescriptions(columns);
