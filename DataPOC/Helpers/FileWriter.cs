@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml;
+using DataPOC.Helpers.OutputHelpers.Excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +12,16 @@ namespace DataPOC.Helpers
 {
     public class FileWriter
     {
+        /*If the year is 2005...*/
+        public static async Task WriteNewExcelFile(string dbName, Dictionary<string, List<string[]>> xlDict)
+        {
+            string dateFormatted = DateTime.Now.ToString().Replace("/", "").Replace(" ", "_").Replace(":", "");
+            string filePath = $"Output/Excel/{dbName}_{dateFormatted}.xlsx";
+            ColumnIndexHelper colIndValues = new ColumnIndexHelper();
 
+            ExcelOutput.GimmeMyExcelFile(path: filePath, excelDict: xlDict, colIndHelper: colIndValues);
+           
+        }
 
 
         public static async Task WriteNewMarkdownDocs(Dictionary<string, string> dataDict)

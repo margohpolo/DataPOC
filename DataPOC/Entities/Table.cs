@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,18 +46,12 @@ namespace DataPOC.Entities
             //    descriptionDict.Add(col.Name, col.Description);
             //}
 
-            foreach (Column column in Columns)
-            {
-                //if (column.Description is not null)
-                //{
-                    column.SetDescription(
-                        colsList.Where(c => c.Name == column.Name)
-                        .Select(c => c.Description)
-                        .FirstOrDefault()
-                        );
-                //}
-
-            }
+            Columns.ForEach(col => col.SetDescription(
+                colsList.Where(c => c.Name == col.Name)
+                .Select(c => c.Description)
+                .FirstOrDefault()
+                )
+            );
 
         }
     }
