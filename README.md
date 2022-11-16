@@ -16,6 +16,3 @@ POC of a helper to automate the generation of documentation.
 <br />
 <br />
 <br />
-
-> <div align="center">"Developers, anywhere can find. Not important..."</br>
-> &minus; Famous last words.</div>
