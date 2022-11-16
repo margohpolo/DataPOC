@@ -12,7 +12,7 @@ POC of a helper to automate the generation of documentation.
 <br />
 <b>[13/11 Commit]</b> Markdown generator added, with examples. See [Output Folder](https://github.com/margohpolo/DataPOC/tree/main/DataPOC/Output) for both MD & Json examples.
 <br />
-<b>[14/11 Commit]</b> Added Excel output functionality ([Output](https://github.com/margohpolo/DataPOC/tree/main/DataPOC/Output) Example included).
+<b>[15/11 Commit]</b> Added Excel output functionality ([Output](https://github.com/margohpolo/DataPOC/tree/main/DataPOC/Output) Example included).
 <br />
 <br />
 <br />
