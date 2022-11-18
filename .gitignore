@@ -6,6 +6,7 @@
 # No free lunch!!!
 DataPOC/Queries/
 DataPOC/Helpers/OutputHelpers/
+OutputBuilder.cs
 
 # User-specific files
 *.rsuser
